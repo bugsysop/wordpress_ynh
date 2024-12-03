@@ -14,13 +14,13 @@ We recommend you to install WordPress with the vanilla Yunohost version (or use 
 Tested:
 - Install
 - Upgrade
+- Remove
 
 Untested:
 - Multisite
-- Remove
 - Restaure
 
-**Shipped version:** 6.5~ynh1 
+**Shipped version:** 6.7.0~ynh1 
 Tested with yunohost 12.0.7
 
 ## Screenshots
