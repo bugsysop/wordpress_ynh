@@ -106,6 +106,9 @@ wpcli_alias="php$phpversion $install_dir/wp-cli.phar --allow-root --path=$instal
 $wpcli_alias plugin install authldap
 $wpcli_alias plugin install wp-fail2ban-redux
 
+# Disable Akismet
+$wpcli_alias plugin is-installed akismet && $wpcli_alias plugin deactivate akismet && $wpcli_alias plugin uninstall akismet $plugin_network
+
 #=================================================
 # SET LANGUAGE
 #=================================================
