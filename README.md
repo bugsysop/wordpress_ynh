@@ -8,6 +8,17 @@ We recommend you to install WordPress with the vanilla Yunohost version (or use 
 
 [![Install WordPress with YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=wordpress)
 
+## Changelog
+
+Install process:
+
+1. Install and activate authLdap and WP Fail2Ban Redux plugins.
+2. Don’t install HTTP Authentication and Companion Auto Update plugins.
+3. Uninstall Akismet plugin.
+
+Upgrade process: 
+
+Don’t _force_ reinstall and activation of default plugins from the YNH app (authLdap, WP Fail2Ban Redux, HTTP Authentication and Companion Auto Update plugins).
 
 ## Hacklog
 
