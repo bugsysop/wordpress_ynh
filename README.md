@@ -38,16 +38,27 @@ Tested with yunohost 12.0.7
 
 ## Developer info
 
-Install:
+Install app (branch: `custom`):
 
 ```bash
 sudo yunohost app install https://github.com//bugsysop/wordpress_ynh --debug
 ```
 
-Upgrade:
+Upgrade app (branch: `custom`):
 
 ```bash
 sudo yunohost app upgrade wordpress -u https://github.com//bugsysop/wordpress_ynh --debug
+```
+Install testing (branch: `next`):
+
+```bash
+sudo yunohost app install https://github.com/bugsysop/wordpress_ynh/tree/next --debug
+```
+
+Upgrade to testing (branch: `next`):
+
+```bash
+sudo yunohost app upgrade wordpress -u https://github.com/bugsysop/wordpress_ynh/tree/next --debug
 ```
 
 **More info regarding YNH app packaging:** <https://yunohost.org/packaging_apps>
