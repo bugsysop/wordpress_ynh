@@ -1,54 +1,53 @@
-<!--
-Nota bene : ce README est automatiquement généré par <https://github.com/YunoHost/apps/tree/master/tools/readme_generator>
-Il NE doit PAS être modifié à la main.
--->
+# WordPress pour YunoHost (fork)
 
-# WordPress pour YunoHost
+Ce paquetage vous permet d’installer WordPress rapidement et simplement sur un serveur YunoHost.
 
-[![Niveau d’intégration](https://dash.yunohost.org/integration/wordpress.svg)](https://dash.yunohost.org/appci/app/wordpress) ![Statut du fonctionnement](https://ci-apps.yunohost.org/ci/badges/wordpress.status.svg) ![Statut de maintenance](https://ci-apps.yunohost.org/ci/badges/wordpress.maintain.svg)
+🔴 Warning : Il s’agit d’un fork de l’application _officielle_ YNH, personnalisé pour les besoins du serveur tmprs.net.
 
-[![Installer WordPress avec YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=wordpress)
+Nous vous recommandons d’installer WordPress à partir de la version originale de Yunohost (utiliser cette version se fait à vos propres risques).
 
-*[Lire le README dans d'autres langues.](./ALL_README.md)*
-
-> *Ce package vous permet d’installer WordPress rapidement et simplement sur un serveur YunoHost.*  
-> *Si vous n’avez pas YunoHost, consultez [ce guide](https://yunohost.org/install) pour savoir comment l’installer et en profiter.*
-
-## Vue d’ensemble
-
-WordPress est un logiciel libre que vous pouvez utiliser pour créer un site ou un blog.
-Avec ce package, vous pouvez même activer l'option [multisite](https://codex.wordpress.org/Glossary#Multisite).
+[![Install WordPress with YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=wordpress)
 
 
-**Version incluse :** 6.5~ynh1
+## Hacklog
 
-## Captures d’écran
+Testé:
+- Installation
+- Mise à jour
+- Supprimer
 
-![Capture d’écran de WordPress](./doc/screenshots/screen-themes.png)
+Non testé:
+- Multisite
+- Restauration
 
-## :red_circle: Anti-fonctionnalités
+**Version installée :** 6.7.1~ynh1     
+Testé avec yunohost 12.0.7
 
-- **Extensions non libres **: Promeut d'autres applications ou plugins non libres.
-- **Contenu payant **: Promeut ou dépend, entièrement ou partiellement, d'un service payant.
+## Capture d’écran
 
-## Documentations et ressources
+![Screenshot of WordPress](./doc/screenshots/screen-themes.png)
 
-- Site officiel de l’app : <https://wordpress.org/>
+
+## Documentation et resources
+
+- Site officiel de l’app : <https://wordpress.org/>
 - Documentation officielle de l’admin : <https://codex.wordpress.org/>
 - Dépôt de code officiel de l’app : <https://core.trac.wordpress.org/browser>
-- YunoHost Store : <https://apps.yunohost.org/app/wordpress>
+- Catalogue d’applications YunoHost : <https://apps.yunohost.org/app/wordpress>
 - Signaler un bug : <https://github.com/YunoHost-Apps/wordpress_ynh/issues>
 
 ## Informations pour les développeurs
 
-Merci de faire vos pull request sur la [branche `testing`](https://github.com/YunoHost-Apps/wordpress_ynh/tree/testing).
-
-Pour essayer la branche `testing`, procédez comme suit :
+Installer :
 
 ```bash
-sudo yunohost app install https://github.com/YunoHost-Apps/wordpress_ynh/tree/testing --debug
-ou
-sudo yunohost app upgrade wordpress -u https://github.com/YunoHost-Apps/wordpress_ynh/tree/testing --debug
+sudo yunohost app install https://github.com//bugsysop/wordpress_ynh --debug
+```
+
+Mettre à jour:
+
+```bash
+sudo yunohost app upgrade wordpress -u https://github.com//bugsysop/wordpress_ynh --debug
 ```
 
 **Plus d’infos sur le packaging d’applications :** <https://yunohost.org/packaging_apps>
