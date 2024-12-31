@@ -20,7 +20,7 @@ Untested:
 - Multisite
 - Restaure
 
-**Shipped version:** 6.7.0~ynh1 
+**Shipped version:** 6.7.1~ynh1 
 Tested with yunohost 12.0.7
 
 ## Screenshots
