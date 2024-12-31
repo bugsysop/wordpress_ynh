@@ -30,15 +30,13 @@ ynh_config_add_nginx
 ynh_config_add_phpfpm
 
 #=================================================
-# SPECIFIC SETUP
-#=================================================
 # CONFIGURE WP-CONFIG
 #=================================================
-ynh_script_progression "Configuring WordPress..."
+ynh_script_progression "Configuring $app..."
 
 # Change variables in Wordpress configuration
 dir=__DIR__
-ynh_add_config --template="../conf/wp-config.php" --destination="$install_dir/wp-config.php"
+ynh_config_add --template="wp-config.php" --destination="$install_dir/wp-config.php"
 
 for i in 1 2 3 4 5 6 7 8
 do
@@ -50,11 +48,10 @@ done
 #=================================================
 # SETTING UP WITH CURL
 #=================================================
-ynh_script_progression "Installing wordpress with cURL..."
+ynh_script_progression "Installing $app with cURL..."
 
 # Set right permissions for cURL install
-#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown -R $app: $install_dir
-
+chown -R $app: $install_dir
 # Regen SSOwat configuration
 yunohost app ssowatconf
 
@@ -64,7 +61,7 @@ ynh_systemctl --service=nginx --action=reload
 # Wordpress installation
 ynh_local_curl "/wp-admin/install.php?step=2" "&weblog_title=YunoBlog" "user_name=$admin" "admin_password=$db_pwd" "admin_password2=$db_pwd" "admin_email=$admin@$domain" "Submit=Install+WordPress"
 
-ynh_print_info --message="Please wait during Wordpress installation..."
+ynh_print_info "Please wait during Wordpress installation..."
 for i in `seq 1 300`
 do
 	# The loop waits for WordPress to be installed, or 5 minutes.
@@ -86,8 +83,9 @@ wpcli_alias="php$php_version $install_dir/wp-cli.phar --allow-root --path=$insta
 $wpcli_alias plugin install authldap
 $wpcli_alias plugin install wp-fail2ban-redux
 
-# Disable Akismet
+# Uninstall Akismet
 $wpcli_alias plugin uninstall akismet
+
 
 
 #=================================================
@@ -144,7 +142,7 @@ $wpcli_alias plugin activate wp-fail2ban-redux $plugin_network
 # Set file and directories ownership
 mkdir -p $install_dir/wp-content/uploads
 mkdir -p $install_dir/wp-content/temp
-#REMOVEME? Assuming the install dir is setup using ynh_setup_source, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown -R $app:www-data "$install_dir"
+chown -R $app:www-data "$install_dir"
 find "$install_dir" -type d -exec chmod 750 {} \;
 find "$install_dir" -type f -exec chmod 640 {} \;
 find "$install_dir/wp-content/uploads" -type d -exec chmod 770 {} \;
@@ -159,9 +157,6 @@ setfacl -Rm d:g:www-data:rwX "$install_dir/wp-content/temp"
 # Calculate and store the config file checksum into the app settings
 ynh_store_file_checksum "$install_dir/wp-config.php"
 
-#REMOVEME? Assuming the file is setup using ynh_config_add, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chmod 400 "$install_dir/wp-config.php"
-#REMOVEME? Assuming the file is setup using ynh_config_add, the proper chmod/chowns are now already applied and it shouldn't be necessary to tweak perms | chown $app:$app "$install_dir/wp-config.php"
-
 #=================================================
 # CREATE A CRON TASK FOR AUTOMATIC UPDATE
 #=================================================
@@ -170,13 +165,10 @@ echo "# Reach everyday wp-cron.php to trig the internal WordPress cron.
 0 3  *  *  * $app php$php_version  $install_dir/wp-cron.php" > /etc/cron.d/$app
 
 #=================================================
-# GENERIC FINALISATION
-#=================================================
 # SETUP FAIL2BAN
 #=================================================
 ynh_script_progression "Configuring Fail2Ban..."
 
-# Create a dedicated Fail2Ban config
 ynh_config_add_fail2ban --logpath="/var/log/auth.log" --failregex="Authentication (attempt for unknown user|failure for) .* from <HOST>"
 
 #=================================================
