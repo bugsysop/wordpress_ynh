@@ -25,6 +25,7 @@ ynh_config_change_url_nginx
 db_prefix=$(grep '^$table_prefix' "$install_dir/wp-config.php" | sed "s/.*'\(.*\)'.*/\1/" )
 
 ynh_mysql_db_shell <<< "UPDATE ${db_prefix}options SET option_value='https://$new_domain$new_path' WHERE option_name='siteurl'"
+
 ynh_mysql_db_shell <<< "UPDATE ${db_prefix}options SET option_value='https://$new_domain$new_path' WHERE option_name='home'"
 
 #=================================================
