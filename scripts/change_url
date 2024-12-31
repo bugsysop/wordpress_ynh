@@ -31,4 +31,4 @@ ynh_mysql_db_shell <<< "UPDATE ${db_prefix}options SET option_value='https://$ne
 # END OF SCRIPT
 #=================================================
 
-ynh_script_progression --message="Change of URL completed for $app" --last
+ynh_script_progression "Change of URL completed for $app"
