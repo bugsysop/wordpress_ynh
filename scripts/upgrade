@@ -14,15 +14,8 @@ ynh_maintenance_mode_ON
 #=================================================
 # ENSURE DOWNWARD COMPATIBILITY
 #=================================================
+
 ynh_script_progression "Ensuring downward compatibility..."
-
-if [ -z "${admin:-}" ]; then
-	ynh_mysql_db_shell <<< "select MAX(user_login) from wp_users where user_status=0 INTO OUTFILE '/tmp/wordpressuser';"
-
-	admin=$(cat /tmp/wordpressuser)
-	ynh_safe_rm /tmp/wordpressuser
-	ynh_app_setting_set --key=admin --value=$admin
-fi
 
 ynh_app_setting_set_default --key=language --value=$(grep WPLANG $install_dir/wp-config.php | cut -d"'" -f4)
 
@@ -35,27 +28,10 @@ elif [ "${multisite,,}" = "no" ]; then
 	multisite=0
 fi
 
-# If some 'add_filter' are still in wp_config, remove them
-if grep add_filter.*auto_update $install_dir/wp-config.php; then
-	sed --in-place '/add_filter.*auto_update/d' $install_dir/wp-config.php
-fi
-
-# Replace wp-fail2ban by wp-fail2ban-redux
-ynh_hide_warnings wget --no-verbose https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar --output-document=$install_dir/wp-cli.phar
-wpcli_alias="php$php_version $install_dir/wp-cli.phar --allow-root --path=$install_dir"
-plugin_network=""
-if [ $multisite -eq 1 ]; then
-        plugin_network="--network"
-fi
-$wpcli_alias plugin is-installed wp-fail2ban && $wpcli_alias plugin deactivate $plugin_network wp-fail2ban && $wpcli_alias plugin uninstall wp-fail2ban
-$wpcli_alias plugin is-installed wp-fail2ban-redux || $wpcli_alias plugin install wp-fail2ban-redux
-
-# Remove old ldap plugin
-$wpcli_alias plugin is-installed simple-ldap-login && $wpcli_alias plugin deactivate $plugin_network simple-ldap-login && $wpcli_alias plugin uninstall simple-ldap-login
-
 #=================================================
 # NGINX CONFIGURATION
 #=================================================
+
 ynh_script_progression "Upgrading NGINX web server configuration..."
 
 ynh_config_add_nginx
@@ -71,6 +47,7 @@ ynh_backup_if_checksum_is_different "$install_dir/wp-config.php"
 #=================================================
 # CONFIGURE MULTISITE
 #=================================================
+
 ynh_script_progression "Configuring multisite..."
 
 if [ $multisite -eq 1 ]
@@ -109,23 +86,12 @@ ynh_app_setting_set --key=multisite --value=$multisite
 #=================================================
 # UPDATE WORDPRESS PLUGINS
 #=================================================
+
 ynh_script_progression "Updating plugins"
 
-# wget -nv https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar -O $install_dir/wp-cli.phar
-# wpcli_alias="php$php_version $install_dir/wp-cli.phar --allow-root --path=$install_dir"
 update_plugin () {
 	( $wpcli_alias plugin is-installed $1 && $wpcli_alias plugin update $1 ) || $wpcli_alias plugin install $1
 }
-update_plugin authldap
-$wpcli_alias plugin activate authldap $plugin_network
-update_plugin companion-auto-update
-$wpcli_alias plugin activate companion-auto-update $plugin_network
-
-update_plugin wp-fail2ban-redux
-$wpcli_alias plugin activate wp-fail2ban-redux $plugin_network
-
-# Disable broken plugin http-authentication
-$wpcli_alias plugin is-installed http-authentication && $wpcli_alias plugin deactivate http-authentication $plugin_network
 
 # Set file and directories ownership
 mkdir -p $install_dir/wp-content/uploads
@@ -155,6 +121,7 @@ echo "# Reach everyday wp-cron.php to trig the internal WordPress cron.
 #=================================================
 # UPGRADE FAIL2BAN
 #=================================================
+
 ynh_script_progression "Reconfiguring Fail2Ban..."
 
 ynh_config_add_fail2ban --logpath="/var/log/auth.log" --failregex="Authentication (attempt for unknown user|failure for) .* from <HOST>"
