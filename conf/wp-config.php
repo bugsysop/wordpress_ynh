@@ -83,7 +83,10 @@ define( 'WP_DEBUG', false );
 
 /* Add any custom values between this line and the "stop editing" line. */
 
-
+define( 'WP_POST_REVISIONS', false ); 
+define( 'FORCE_SSL_ADMIN', true );
+define( 'EMPTY_TRASH_DAYS', 7 ); // 7 days
+define( 'IMAGE_EDIT_OVERWRITE', true );
 
 /* That's all, stop editing! Happy publishing. */
 
