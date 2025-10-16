@@ -93,6 +93,9 @@ update_plugin () {
 	( $wpcli_alias plugin is-installed $1 && $wpcli_alias plugin update $1 ) || $wpcli_alias plugin install $1
 }
 
+update_plugin wp-fail2ban-redux
+$wpcli_alias plugin activate wp-fail2ban-redux $plugin_network
+
 # Set file and directories ownership
 mkdir -p $install_dir/wp-content/uploads
 mkdir -p $install_dir/wp-content/temp
