@@ -59,7 +59,7 @@ yunohost app ssowatconf
 ynh_systemctl --service=nginx --action=reload
 
 # Wordpress installation
-ynh_local_curl "/wp-admin/install.php?step=2" "&weblog_title=YunoBlog" "user_name=$admin" "admin_password=$db_pwd" "admin_password2=$db_pwd" "admin_email=$admin@$domain" "Submit=Install+WordPress"
+ynh_local_curl "/wp-admin/install.php?step=2" "&weblog_title=My Site" "user_name=$admin" "admin_password=$db_pwd" "admin_password2=$db_pwd" "admin_email=$admin@$domain" "Submit=Install+WordPress"
 
 ynh_print_info "Please wait during Wordpress installation..."
 for i in `seq 1 300`
@@ -81,8 +81,6 @@ ynh_hide_warnings wget --no-verbose https://raw.githubusercontent.com/wp-cli/bui
 wpcli_alias="php$php_version $install_dir/wp-cli.phar --allow-root --path=$install_dir"
 
 $wpcli_alias plugin install authldap
-$wpcli_alias plugin install http-authentication
-$wpcli_alias plugin install companion-auto-update
 $wpcli_alias plugin install wp-fail2ban-redux
 
 #=================================================
@@ -134,8 +132,6 @@ fi
 ynh_script_progression "Activating plugins..."
 
 $wpcli_alias plugin activate authldap $plugin_network
-# Do not activate http-authentication, this plugin is sometimes unstable
-$wpcli_alias plugin activate companion-auto-update $plugin_network
 $wpcli_alias plugin activate wp-fail2ban-redux $plugin_network
 
 # Set file and directories ownership
