@@ -9,9 +9,6 @@ It shall NOT be edited by hand.
 ![Working status](https://apps.yunohost.org/badge/state/wordpress)
 ![Maintenance status](https://apps.yunohost.org/badge/maintained/wordpress)
 
-[![Install WordPress with YunoHost](https://install-app.yunohost.org/install-with-yunohost.svg)](https://install-app.yunohost.org/?app=wordpress)
-
-*[Read this README in other languages.](./ALL_README.md)*
 
 > *This package allows you to install WordPress quickly and simply on a YunoHost server.*  
 > *If you don't have YunoHost, please consult [the guide](https://yunohost.org/install) to learn how to install it.*
@@ -22,16 +19,11 @@ WordPress is open source software you can use to create a beautiful website, blo
 With this package, you can even activate the [multisite](https://wordpress.org/support/article/glossary/#multisite) option.
 
 
-**Shipped version:** 6.7.0~ynh1
+**Shipped version:** 6.8.2~ynh1
 
 ## Screenshots
 
 ![Screenshot of WordPress](./doc/screenshots/screen-themes.png)
-
-## :red_circle: Antifeatures
-
-- **Non-free Addons**: Promotes other non-free applications or plugins.
-- **Paid content**: Promotes or depends, entirely or partially, on a paid service.
 
 ## Documentation and resources
 
@@ -41,16 +33,13 @@ With this package, you can even activate the [multisite](https://wordpress.org/s
 - YunoHost Store: <https://apps.yunohost.org/app/wordpress>
 - Report a bug: <https://github.com/YunoHost-Apps/wordpress_ynh/issues>
 
-## Developer info
-
-Please send your pull request to the [`testing` branch](https://github.com/YunoHost-Apps/wordpress_ynh/tree/testing).
-
-To try the `testing` branch, please proceed like that:
+## Usage
 
 ```bash
-sudo yunohost app install https://github.com/YunoHost-Apps/wordpress_ynh/tree/testing --debug
+sudo yunohost app install https://github.com/bugsysop/wordpress_ynh/tree/custom --debug
 or
-sudo yunohost app upgrade wordpress -u https://github.com/YunoHost-Apps/wordpress_ynh/tree/testing --debug
+sudo yunohost app upgrade <appName> -u https://github.com/bugsysop/wordpress_ynh/tree/custom --debug
 ```
+Replace `<appName>` with the ID of the App to be upgrades (ex. `wordpres__2`)
 
 **More info regarding app packaging:** <https://yunohost.org/packaging_apps>
