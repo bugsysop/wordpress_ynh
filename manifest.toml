@@ -2,7 +2,7 @@ packaging_format = 2
 
 id = "wordpress"
 name = "WordPress"
-description.en = "Create a beautiful blog or website easily"
+description.en = "Create a blog or website easily"
 description.fr = "Logiciel de création de blog ou de site Web"
 
 version = "6.8.2~ynh1"
@@ -42,17 +42,17 @@ ram.runtime = "50M"
 
     [install.language]
     ask.en = "Choose the application language"
-    ask.fr = "Choisissez la langue de l'application"
+    ask.fr = "Choisissez la langue de l’application"
     type = "select"
-    choices = ["en_US", "fr_FR"]
-    default = "en_US"
+    choices = ["fr_FR", "en_US"]
+    default = "fr_FR"
 
     [install.admin]
     type = "user"
 
     [install.multisite]
     ask.en = "Enable multisite option?"
-    ask.fr = "Activer l'option multisite ?"
+    ask.fr = "Activer l’option multisite ?"
     type = "boolean"
     default = false
 
