@@ -84,19 +84,11 @@ fi
 ynh_app_setting_set --key=multisite --value=$multisite
 
 #=================================================
-# UPDATE WORDPRESS PLUGINS
+# FILES & DIRECTORIES
 #=================================================
 
-ynh_script_progression "Updating plugins"
+ynh_script_progression "Set file and directories ownership"
 
-update_plugin () {
-	( $wpcli_alias plugin is-installed $1 && $wpcli_alias plugin update $1 ) || $wpcli_alias plugin install $1
-}
-
-update_plugin wp-fail2ban-redux
-$wpcli_alias plugin activate wp-fail2ban-redux $plugin_network
-
-# Set file and directories ownership
 mkdir -p $install_dir/wp-content/uploads
 mkdir -p $install_dir/wp-content/temp
 chown -R $app:www-data "$install_dir"
